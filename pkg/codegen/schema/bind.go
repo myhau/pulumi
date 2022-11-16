@@ -341,9 +341,20 @@ type packageSpecSource struct {
 	spec *PackageSpec
 }
 
+var lowercasedTypesCache = make(map[string]*ComplexTypeSpec)
+
 func (s packageSpecSource) GetTypeDefSpec(token string) (ComplexTypeSpec, bool, error) {
-	spec, ok := s.spec.Types[token]
-	return spec, ok, nil
+	if v, exists := lowercasedTypesCache[strings.ToLower(token)]; exists {
+		return *v, true, nil
+	} else {
+		for k, v := range s.spec.Types {
+			if strings.ToLower(k) == strings.ToLower(token) {
+				lowercasedTypesCache[strings.ToLower(token)] = &v
+				return v, true, nil
+			}
+		}
+		return ComplexTypeSpec{}, false, nil
+	}
 }
 
 func (s packageSpecSource) GetFunctionSpec(token string) (FunctionSpec, bool, error) {
