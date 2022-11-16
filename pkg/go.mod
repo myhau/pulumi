@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi/pkg/v3
+module github.com/myhau/pulumi/pkg/v3
 
 go 1.17
 
@@ -235,3 +235,5 @@ require (
 	lukechampine.com/frand v1.4.2 // indirect
 	sourcegraph.com/sourcegraph/appdash-data v0.0.0-20151005221446-73f23eafcf67 // indirect
 )
+
+replace github.com/pulumi/pulumi/pkg/v3 v3.36.1-0.20220725155140-d69eea638451 => github.com/myhau/pulumi/pkg/v3 v3.0.0-fix-bug-with-ref-letter-casing
